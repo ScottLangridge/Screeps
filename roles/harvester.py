@@ -1,4 +1,5 @@
 from defs import *
+from consts import CONTAINER_FILL_ORDER
 
 __pragma__('noalias', 'name')
 __pragma__('noalias', 'undefined')
@@ -54,6 +55,7 @@ def get_target(me):
                                                       and s.energy < s.energyCapacity}
     extension = me.pos.findClosestByPath(FIND_STRUCTURES, filter_non_full_extensions)
 
+    print(CONTAINER_FILL_ORDER)
     # Containers (in order of importance)
     for container in CONTAINER_FILL_ORDER:
         cont = Game.getObjectById(container)
