@@ -57,9 +57,9 @@ def main():
 
         # If there are not enough of a certain class, spawn it
         if harvesters < consts.TARGET_HARVESTERS:
-            spawn.spawnCreep(harvester.BODY_1, name_creep('harvester'), {'memory': {'role': 'harvester'}})
+            spawn.spawnCreep(harvester.BODY_2, name_creep('harvester'), {'memory': {'role': 'harvester'}})
         if starters < consts.TARGET_STARTERS:
-            spawn.spawnCreep(starter.BODY_1, name_creep('starter'), {'memory': {'role': 'starter'}})
+            spawn.spawnCreep(starter.BODY_2, name_creep('starter'), {'memory': {'role': 'starter'}})
 
 
 def name_creep(role):
