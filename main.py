@@ -16,38 +16,37 @@ __pragma__('noalias', 'set')
 __pragma__('noalias', 'type')
 __pragma__('noalias', 'update')
 
-###############################################################################################################################
-#    MY CODE
-###############################################################################################################################
+###############################################################################
+# MY CODE
+###############################################################################
 
 import consts
-import starter
-import harvester
+from roles import starter, harvester
 
 
 # Run each tick.
 def main():
-    starters = 0
-    harvesters = 0
+    memory_cleanup()
+    creep_counts = creep_control()
+    spawn_control(creep_counts)
 
-    # MEMORY CONTROL
-    # Cleanup
-    for name, creep in _.pairs(Memory.creeps):
-        if not (name in Game.creeps):
-            del Memory.creeps[name]
 
-    # CREEP CONTROL
+# Controls all creeps
+def creep_control():
+    creep_counts = {'starter': 0, 'harvester': 0}
     for creepName in Object.keys(Game.creeps):
         creep = Game.creeps[creepName]
-
         if creep.memory.role == 'harvester':
             harvester.run(creep)
-            harvesters += 1
+            creep_counts['harvester'] += 1
         elif creep.memory.role == 'starter':
             starter.run(creep)
-            starters += 1
+            creep_counts['starter'] += 1
+    return creep_counts
 
-    # SPAWN CONTROL
+
+# Controls all spawners
+def spawn_control(creep_counts):
     for spawnName in Object.keys(Game.spawns):
         spawn = Game.spawns[spawnName]
 
@@ -56,24 +55,33 @@ def main():
             continue
 
         # If there are not enough of a certain class, spawn it
-        if harvesters < consts.TARGET_HARVESTERS:
-            spawn.spawnCreep(harvester.BODY_2, name_creep('harvester'), {'memory': {'role': 'harvester'}})
-        if starters < consts.TARGET_STARTERS:
-            spawn.spawnCreep(starter.BODY_2, name_creep('starter'), {'memory': {'role': 'starter'}})
+        if creep_counts['harvester'] < consts.TARGET_HARVESTERS:
+            spawn.spawnCreep(consts.HARVESTER_BODY, name_creep('harvester'), {'memory': {'role': 'harvester'}})
+            continue
+        if creep_counts['starter'] < consts.TARGET_STARTERS:
+            spawn.spawnCreep(consts.STARTER_BODY, name_creep('starter'), {'memory': {'role': 'starter'}})
+            continue
 
 
+# Generates names for new creeps
 def name_creep(role):
     pre = role[0].upper() + role[1:] + ' '
 
     i = 0
     while True:
         i += 1
-
         name = str(pre + str(i))
         if name in Game.creeps:
             continue
         else:
             return name
+
+
+# Removes memory for dead creeps
+def memory_cleanup():
+    for name, creep in _.pairs(Memory.creeps):
+        if not (name in Game.creeps):
+            del Memory.creeps[name]
 
 
 module.exports.loop = main
