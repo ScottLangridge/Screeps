@@ -37,6 +37,7 @@ def deposit(me):
     target = get_target(me)
 
     # If construction
+    # TODO This is a little dodgy. Maybe find a better way of differentiating type of structure.
     if str(target)[1:18] == 'construction site':
         code = me.build(target)
         if code == OK:
