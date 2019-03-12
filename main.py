@@ -29,7 +29,7 @@ def main():
     harvesters = 0
 
     # MEMORY CONTROL
-    #  Cleanup
+    # Cleanup
     for name, creep in _.pairs(Memory.creeps):
         if not (name in Game.creeps):
             del Memory.creeps[name]
@@ -52,14 +52,11 @@ def main():
 
         # If there are not enough of a certain class, spawn it
         if harvesters < consts.TARGET_HARVESTERS:
-            spawn.spawnCreep(harvester.BODY_1, name_creep('harvester'),
+            spawn.spawnCreep(harvester.BODY_0, name_creep('harvester'),
                              {'memory': {'role': 'harvester'}})
 
 
 def name_creep(role):
-    if role == 'harvester':
-        target = consts.TARGET_HARVESTERS
-
     pre = role[0].upper() + role[1:] + ' '
 
     i = 0
