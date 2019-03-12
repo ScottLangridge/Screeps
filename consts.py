@@ -1,5 +1,4 @@
-import starter
-import harvester
+from roles import starter, harvester
 
 TARGET_STARTERS = 5
 TARGET_HARVESTERS = 0
