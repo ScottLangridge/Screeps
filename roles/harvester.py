@@ -1,5 +1,4 @@
 from defs import *
-import consts
 
 __pragma__('noalias', 'name')
 __pragma__('noalias', 'undefined')
@@ -9,10 +8,6 @@ __pragma__('noalias', 'get')
 __pragma__('noalias', 'set')
 __pragma__('noalias', 'type')
 __pragma__('noalias', 'update')
-
-BODY_0 = [MOVE, WORK, WORK, CARRY]
-BODY_1 = [MOVE, WORK, WORK, WORK, CARRY, CARRY]
-BODY_2 = [MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY]
 
 
 def run(me):
@@ -60,7 +55,7 @@ def get_target(me):
     extension = me.pos.findClosestByPath(FIND_STRUCTURES, filter_non_full_extensions)
 
     # Containers (in order of importance)
-    for container in consts.CONTAINER_FILL_ORDER:
+    for container in CONTAINER_FILL_ORDER:
         cont = Game.getObjectById(container)
         if cont.store[RESOURCE_ENERGY] < cont.storeCapacity:
             return cont
