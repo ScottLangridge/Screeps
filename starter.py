@@ -9,8 +9,8 @@ __pragma__('noalias', 'set')
 __pragma__('noalias', 'type')
 __pragma__('noalias', 'update')
 
-BODY_0 = [MOVE, WORK, CARRY]
-BODY_1 = [MOVE, WORK, WORK, CARRY]
+BODY_0 = [MOVE, WORK, WORK, CARRY]
+BODY_1 = [MOVE, MOVE, WORK, WORK, CARRY]
 
 
 def get_target(me):
