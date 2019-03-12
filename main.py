@@ -1,6 +1,7 @@
 # defs is a package which claims to export all constants and some JavaScript objects, but in reality does
 #  nothing. This is useful mainly when using an editor like PyCharm, so that it 'knows' that things like Object, Creep,
 #  Game, etc. do exist.
+
 from defs import *
 
 # These are currently required for Transcrypt in order to use the following names in JavaScript.
@@ -15,11 +16,61 @@ __pragma__('noalias', 'set')
 __pragma__('noalias', 'type')
 __pragma__('noalias', 'update')
 
+###############################################################################################################################
+#    MY CODE
+###############################################################################################################################
 
+import consts
+import harvester
+
+
+# Run each tick.
 def main():
-    for name in Object.keys(Game.spawns):
-        spawn = Game.spawns[name]
-        spawn.createCreep([WORK, CARRY, MOVE, MOVE])
+    harvesters = 0
+
+    # MEMORY CONTROL
+    #  Cleanup
+    for name, creep in _.pairs(Memory.creeps):
+        if not (name in Game.creeps):
+            del Memory.creeps[name]
+
+    # CREEP CONTROL
+    for creepName in Object.keys(Game.creeps):
+        creep = Game.creeps[creepName]
+
+        if creep.memory.role == 'harvester':
+            harvester.run(creep)
+            harvesters += 1
+
+    # SPAWN CONTROL
+    for spawnName in Object.keys(Game.spawns):
+        spawn = Game.spawns[spawnName]
+
+        # If already spawning, skip.
+        if spawn.spawning is not None:
+            continue
+
+        # If there are not enough of a certain class, spawn it
+        if harvesters < consts.TARGET_HARVESTERS:
+            spawn.spawnCreep(harvester.BODY_1, name_creep('harvester'),
+                             {'memory': {'role': 'harvester'}})
+
+
+def name_creep(role):
+    if role == 'harvester':
+        target = consts.TARGET_HARVESTERS
+
+    pre = role[0].upper() + role[1:] + ' '
+
+    i = 0
+    while True:
+        i += 1
+
+        name = str(pre + str(i))
+        if name in Game.creeps:
+            continue
+        else:
+            return name
 
 
 module.exports.loop = main
