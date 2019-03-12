@@ -13,6 +13,18 @@ BODY_0 = [MOVE, WORK, CARRY]
 BODY_1 = [MOVE, WORK, WORK, CARRY]
 
 
+def get_target(me):
+    spawn = Game.spawns['Spawn1']
+    controller = me.room.controller
+
+    if spawn.energy < spawn.energyCapacity:
+        return spawn
+    elif len(Game.constructionSites) > 0:
+        return me.pos.findClosestByPath(FIND_CONSTRUCTION_SITES)
+    else:
+        return controller
+
+
 def run(me):
     # Switch task if necessary:
     if me.carry.energy == 0:
@@ -27,8 +39,17 @@ def run(me):
     # If depositing
     if me.memory.depositing:
         target = get_target(me)
+
+        # If construction
+        if str(target)[1:18] == 'construction site':
+            code = me.build(target)
+            if code == OK:
+                me.memory.target = False
+            elif code == ERR_NOT_IN_RANGE:
+                me.moveTo(target)
+
         # If spawn
-        if target.structureType == STRUCTURE_SPAWN:
+        elif target.structureType == STRUCTURE_SPAWN:
             code = me.transfer(target, RESOURCE_ENERGY)
             if code == OK:
                 me.memory.target = False
@@ -51,13 +72,3 @@ def run(me):
             pass
         elif code == ERR_NOT_IN_RANGE:
             me.moveTo(target)
-
-
-def get_target(me):
-    spawn = Game.spawns['Spawn1']
-    controller = me.room.controller
-
-    if spawn.energy < spawn.energyCapacity:
-        return spawn
-    else:
-        return controller
