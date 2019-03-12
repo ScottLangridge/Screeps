@@ -21,11 +21,13 @@ __pragma__('noalias', 'update')
 ###############################################################################################################################
 
 import consts
+import starter
 import harvester
 
 
 # Run each tick.
 def main():
+    starters = 0
     harvesters = 0
 
     # MEMORY CONTROL
@@ -41,6 +43,9 @@ def main():
         if creep.memory.role == 'harvester':
             harvester.run(creep)
             harvesters += 1
+        elif creep.memory.role == 'starter':
+            starter.run(creep)
+            starters += 1
 
     # SPAWN CONTROL
     for spawnName in Object.keys(Game.spawns):
@@ -52,8 +57,9 @@ def main():
 
         # If there are not enough of a certain class, spawn it
         if harvesters < consts.TARGET_HARVESTERS:
-            spawn.spawnCreep(harvester.BODY_1, name_creep('harvester'),
-                             {'memory': {'role': 'harvester'}})
+            spawn.spawnCreep(harvester.BODY_1, name_creep('harvester'), {'memory': {'role': 'harvester'}})
+        if starters < consts.TARGET_STARTERS:
+            spawn.spawnCreep(starter.BODY_1, name_creep('starter'), {'memory': {'role': 'starter'}})
 
 
 def name_creep(role):
