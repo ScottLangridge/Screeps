@@ -16,9 +16,12 @@ BODY_1 = [MOVE, WORK, WORK, CARRY]
 def get_target(me):
     spawn = Game.spawns['Spawn1']
     controller = me.room.controller
+    extension = me.pos.findClosestByPath(FIND_STRUCTURES, {'filter': lambda s: s.structureType == STRUCTURE_EXTENSION and s.energy < s.energyCapacity})
 
     if spawn.energy < spawn.energyCapacity:
         return spawn
+    if extension is not None:
+        return extension
     elif len(Game.constructionSites) > 0:
         return me.pos.findClosestByPath(FIND_CONSTRUCTION_SITES)
     else:
@@ -48,8 +51,8 @@ def run(me):
             elif code == ERR_NOT_IN_RANGE:
                 me.moveTo(target)
 
-        # If spawn
-        elif target.structureType == STRUCTURE_SPAWN:
+        # If spawn or Extension
+        elif target.structureType == STRUCTURE_SPAWN or target.structureType == STRUCTURE_EXTENSION:
             code = me.transfer(target, RESOURCE_ENERGY)
             if code == OK:
                 me.memory.target = False
