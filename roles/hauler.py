@@ -58,7 +58,8 @@ def deposit(me):
             return
 
     # Fill towers
-    filter_tower = {'filter': lambda s: s.structureType == STRUCTURE_TOWER and s.energy < s.energyCapacity}
+    filter_tower = {'filter': lambda s: s.structureType == STRUCTURE_TOWER
+                    and s.energyCapacity - s.energy > me.carry[RESOURCE_ENERGY]}
     target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_tower)
     if target is not None:
         code = me.transfer(target, RESOURCE_ENERGY)
