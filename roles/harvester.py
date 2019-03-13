@@ -44,13 +44,14 @@ def deposit(me):
 
 def collect(me):
     target = me.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
-    code = me.harvest(target)
-    if code == OK:
-        pass
-    elif code == ERR_NOT_IN_RANGE:
-        me.moveTo(target)
-    else:
-        me.say('ERR2: ' + code)
+    if target is not None:
+        code = me.harvest(target)
+        if code == OK:
+            pass
+        elif code == ERR_NOT_IN_RANGE:
+            me.moveTo(target)
+        else:
+            me.say('ERR2: ' + code)
 
 
 def get_target(me):
