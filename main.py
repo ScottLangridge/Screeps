@@ -21,7 +21,7 @@ __pragma__('noalias', 'update')
 ###############################################################################
 
 import consts
-from roles import starter, harvester
+from roles import starter, harvester, builder
 
 
 # Run each tick.
@@ -33,7 +33,7 @@ def main():
 
 # Controls all creeps
 def creep_control():
-    creep_counts = {'starter': 0, 'harvester': 0}
+    creep_counts = {'starter': 0, 'harvester': 0, 'builder': 0}
     for creepName in Object.keys(Game.creeps):
         creep = Game.creeps[creepName]
         if creep.memory.role == 'harvester':
@@ -42,6 +42,9 @@ def creep_control():
         elif creep.memory.role == 'starter':
             starter.run(creep)
             creep_counts['starter'] += 1
+        elif creep.memory.role == 'builder':
+            builder.run(creep)
+            creep_counts['builder'] += 1
     return creep_counts
 
 
@@ -55,12 +58,14 @@ def spawn_control(creep_counts):
             continue
 
         # If there are not enough of a certain class, spawn it
-        if creep_counts['harvester'] < consts.TARGET_HARVESTERS:
-            spawn.spawnCreep(consts.HARVESTER_BODY, name_creep('harvester'), {'memory': {'role': 'harvester'}})
-            continue
         if creep_counts['starter'] < consts.TARGET_STARTERS:
             spawn.spawnCreep(consts.STARTER_BODY, name_creep('starter'), {'memory': {'role': 'starter'}})
             continue
+        if creep_counts['harvester'] < consts.TARGET_HARVESTERS:
+            spawn.spawnCreep(consts.HARVESTER_BODY, name_creep('harvester'), {'memory': {'role': 'harvester'}})
+            continue
+        if creep_counts['builder'] < consts.TARGET_BUILDERS:
+            spawn.spawnCreep(consts.HARVESTER_BODY, name_creep('builder'), {'memory': {'role': 'builder'}})
 
 
 # Generates names for new creeps
