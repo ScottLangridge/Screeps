@@ -1,4 +1,4 @@
-from roles.bodies import BODIES
+from roles.creep_bodies import BODIES
 
 TARGET_STARTERS = 5
 TARGET_HARVESTERS = 1
