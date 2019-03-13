@@ -26,9 +26,13 @@ def decide_task(me):
         if me.memory.task != 'collect':
             me.say('Collecting')
             me.memory.task = 'collect'
-    elif me.carry.energy == me.carryCapacity:
-        if not (me.memory.task == 'building' or me.memory.task == 'repairing'):
+    elif me.carry.energy == me.carryCapacity and me.memory.task == 'collect':
             me.say('Working')
+            if me.pos.findClosestByRange(FIND_CONSTRUCTION_SITES) is not None:
+                me.memory.task = 'building'
+            else:
+                me.memory.task = 'repairing'
+    else:
         if me.pos.findClosestByRange(FIND_CONSTRUCTION_SITES) is not None:
             me.memory.task = 'building'
         else:
