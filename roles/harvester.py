@@ -38,6 +38,8 @@ def deposit(me):
         me.memory.target = False
     elif code == ERR_NOT_IN_RANGE:
         me.moveTo(target)
+    else:
+        me.say('ERR1: ' + code)
 
 
 def collect(me):
@@ -47,6 +49,8 @@ def collect(me):
         pass
     elif code == ERR_NOT_IN_RANGE:
         me.moveTo(target)
+    else:
+        me.say('ERR2: ' + code)
 
 
 def get_target(me):
