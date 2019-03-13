@@ -33,13 +33,14 @@ def decide_task(me):
 
 def deposit(me):
     target = get_target(me)
-    code = me.transfer(target, RESOURCE_ENERGY)
-    if code == OK:
-        me.memory.target = False
-    elif code == ERR_NOT_IN_RANGE:
-        me.moveTo(target)
-    else:
-        me.say('ERR1: ' + code)
+    if target is not None:
+        code = me.transfer(target, RESOURCE_ENERGY)
+        if code == OK:
+            me.memory.target = False
+        elif code == ERR_NOT_IN_RANGE:
+            me.moveTo(target)
+        else:
+            me.say('ERR1: ' + code)
 
 
 def collect(me):
