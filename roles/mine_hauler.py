@@ -45,6 +45,7 @@ def deposit(me):
                 me.moveTo(target)
             else:
                 me.say('ERR1: ' + code)
+            return
 
     # Fill extensions
     filter_extension = {'filter': lambda s: s.structureType == STRUCTURE_EXTENSION and s.energy < s.energyCapacity}
@@ -86,7 +87,7 @@ def collect(me):
     # Take from mine containers
     for mine in STATIC_MINER_SPOTS:
         container = get_container_at(me, mine[0], mine[1])
-        if container is not None:
+        if container is not None and container.store[RESOURCE_ENERGY] >= me.carryCapacity:
             code = me.withdraw(container, RESOURCE_ENERGY)
             if code == OK:
                 return
@@ -107,19 +108,6 @@ def collect(me):
             me.moveTo(target)
         else:
             me.say('ERR1:' + str(code))
-
-    # Take from container
-    filter_containers = {'filter': lambda s: s.structureType == STRUCTURE_CONTAINER
-                         and s.store[RESOURCE_ENERGY] >= me.carryCapacity}
-    target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_containers)
-    code = me.withdraw(target, RESOURCE_ENERGY)
-    if target is not None:
-        if code == OK:
-            return
-        elif code == ERR_NOT_IN_RANGE:
-            me.moveTo(target)
-        else:
-            me.say('ERR2:' + str(code))
 
 
 def get_container_at(me, x, y):
