@@ -33,7 +33,8 @@ def decide_task(me):
 
 
 def deposit(me):
-    target = me.pos.room.controller
+    filter_controller = {'filter': lambda s: s.structureType == STRUCTURE_CONTROLLER}
+    target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_controller)
     code = me.upgradeController(target)
     if code == OK:
         return
