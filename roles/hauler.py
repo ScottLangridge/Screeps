@@ -72,7 +72,7 @@ def deposit(me):
 
 def collect(me):
     # Take from floor
-    filter_floor_energy = {'filter': lambda s: s.resourceType == RESOURCE_ENERGY}
+    filter_floor_energy = {'filter': lambda s: s.resourceType == RESOURCE_ENERGY and s.amount > 100}
     target = me.pos.findClosestByRange(FIND_DROPPED_RESOURCES, filter_floor_energy)
     if target is not None:
         code = me.pickup(target)
@@ -81,16 +81,17 @@ def collect(me):
         elif code == ERR_NOT_IN_RANGE:
             me.moveTo(target)
         else:
-            me.say('ERR:' + str(code))
+            me.say('ERR1:' + str(code))
 
     # Take from container
     filter_containers = {'filter': lambda s: s.structureType == STRUCTURE_CONTAINER
-                         and s.store[RESOURCE_ENERGY] > me.carryCapacity}
+                         and s.store[RESOURCE_ENERGY] >= me.carryCapacity}
     target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_containers)
     code = me.withdraw(target, RESOURCE_ENERGY)
-    if code == OK:
-        return
-    elif code == ERR_NOT_IN_RANGE:
-        me.moveTo(target)
-    else:
-        me.say('ERR:' + str(code))
+    if target is not None:
+        if code == OK:
+            return
+        elif code == ERR_NOT_IN_RANGE:
+            me.moveTo(target)
+        else:
+            me.say('ERR2:' + str(code))
