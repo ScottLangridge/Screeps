@@ -16,7 +16,6 @@ def run(me):
         me.memory['station'] = get_station(me)
         station = me.room.getPositionAt(me.memory.station[0], me.memory.station[1])
         me.memory.target = station.findClosestByRange(FIND_SOURCES).id
-        pass
     else:
         station = me.room.getPositionAt(me.memory.station[0], me.memory.station[1])
         code = me.harvest(Game.getObjectById(me.memory.target))
@@ -34,6 +33,8 @@ def get_station(me):
             harvesters.append(creep)
 
     for harvester in harvesters:
-        stations.remove(harvester.memory.station)
+        for station in stations:
+            if str(harvester.memory.station) == str(station):
+                stations.remove(station)
 
     return stations[0]
