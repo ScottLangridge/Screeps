@@ -16,5 +16,7 @@ BODIES = {'starter': [[MOVE, WORK, WORK, CARRY],
           'hauler': [[MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY]],
 
           'upgrader': [[MOVE, CARRY, WORK],
-                       [MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY]]
+                       [MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY]],
+
+          'static_miner': [[MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, WORK]],
           }
