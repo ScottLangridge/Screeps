@@ -15,4 +15,6 @@ UPGRADER_BODY = BODIES['upgrader'][1]
 HARVESTER_CONTAINER_FILL_ORDER = ['5c8837ab0feddb5f7827ba2c', '5c88e870946eb05f77944ad6',
                                   '5c884a25311fe41e87188549']
 
+STATIC_MINER_SPOTS = [(23, 81), (30, 20)]
+
 DEBUG_MESSAGES = False

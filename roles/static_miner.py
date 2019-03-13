@@ -1,5 +1,5 @@
+from consts import STATIC_MINER_SPOTS
 from defs import *
-from consts import HARVESTER_CONTAINER_FILL_ORDER
 
 __pragma__('noalias', 'name')
 __pragma__('noalias', 'undefined')
@@ -12,65 +12,26 @@ __pragma__('noalias', 'update')
 
 
 def run(me):
-    decide_task(me)
-
-    if me.memory.depositing:
-        deposit(me)
+    if me.memory.station is None:
+        me.memory.station = get_station(me)
+        me.memory.target = me.memory.station.findClosestByRange(FIND_SOURCES)
     else:
-        collect(me)
+        if me.harvest(me.memory.target) == ERR_NOT_IN_RANGE:
+            me.moveTo(me.memory.target)
 
 
-def decide_task(me):
-    if me.carry.energy == 0:
-        if me.memory.depositing:
-            me.say('Mining')
-        me.memory.depositing = False
-    elif me.carry.energy == me.carryCapacity:
-        if not me.memory.depositing:
-            me.say('Dropping')
-        me.memory.depositing = True
+def get_station(me):
+    stations = STATIC_MINER_SPOTS[:]
+    for i in range(len(stations)):
+        stations[i] = me.room.getPositionAt(stations[i][0], stations[i][1])
 
+    harvesters = []
+    for creep_name in Object.keys(Game.creeps):
+        creep = Game.creeps[creep_name]
+        if creep.memory.role == 'static_harvester':
+            harvesters.append(creep)
 
-def deposit(me):
-    target = get_target(me)
-    if target is not None:
-        code = me.transfer(target, RESOURCE_ENERGY)
-        if code == OK:
-            me.memory.target = False
-        elif code == ERR_NOT_IN_RANGE:
-            me.moveTo(target)
-        else:
-            me.say('ERR1: ' + code)
+    for harvester in harvesters:
+        stations.remove(harvester.memory.station)
 
-
-def collect(me):
-    target = me.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
-    if target is not None:
-        code = me.harvest(target)
-        if code == OK:
-            pass
-        elif code == ERR_NOT_IN_RANGE:
-            me.moveTo(target)
-        else:
-            me.say('ERR2: ' + code)
-
-
-def get_target(me):
-    spawn = Game.spawns['Spawn1']
-    filter_non_full_extensions = {'filter': lambda s: s.structureType == STRUCTURE_EXTENSION
-                                                      and s.energy < s.energyCapacity}
-    extension = me.pos.findClosestByPath(FIND_STRUCTURES, filter_non_full_extensions)
-
-    # Containers (in order of importance)
-    for container in HARVESTER_CONTAINER_FILL_ORDER:
-        cont = Game.getObjectById(container)
-        if cont.store[RESOURCE_ENERGY] < cont.storeCapacity:
-            return cont
-
-    # Spawn
-    if spawn.energy < spawn.energyCapacity:
-        return spawn
-
-    # Extensions
-    if extension is not None:
-        return extension
+    return stations[0]
