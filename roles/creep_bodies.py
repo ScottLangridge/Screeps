@@ -19,4 +19,7 @@ BODIES = {'starter': [[MOVE, WORK, WORK, CARRY],
                        [MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY]],
 
           'static_miner': [[MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, WORK]],
+
+          'mine_hauler': [
+              [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY]],
           }
