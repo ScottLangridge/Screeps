@@ -21,7 +21,7 @@ __pragma__('noalias', 'update')
 ###############################################################################
 
 import consts
-from roles import starter, harvester, builder, hauler
+from roles import tower, starter, harvester, builder, hauler
 
 
 # Run each tick.
@@ -29,6 +29,7 @@ def main():
     memory_cleanup()
     creep_counts = creep_control()
     spawn_control(creep_counts)
+    tower_control()
 
 
 # Controls all creeps
@@ -73,6 +74,14 @@ def spawn_control(creep_counts):
         if creep_counts['hauler'] < consts.TARGET_HAULERS:
             spawn.spawnCreep(consts.HAULER_BODY, name_creep('hauler'), {'memory': {'role': 'hauler'}})
             continue
+
+
+# Controls towers
+def tower_control():
+    tower_filter = {'filter': lambda s: s.structureType == STRUCTURE_TOWER}
+    for key, room in _.pairs(Game.rooms):
+        for key2, this_tower in _.pairs(room.find(FIND_STRUCTURES, tower_filter)):
+            tower.run(this_tower)
 
 
 # Generates names for new creeps
