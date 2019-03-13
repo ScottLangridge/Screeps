@@ -34,7 +34,6 @@ def decide_task(me):
 
 
 def deposit(me):
-
     # Fill extensions
     filter_extension = {'filter': lambda s: s.structureType == STRUCTURE_EXTENSION and s.energy < s.energyCapacity}
     target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_extension)
