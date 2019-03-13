@@ -68,7 +68,7 @@ def spawn_control(creep_counts):
             spawn.spawnCreep(consts.HARVESTER_BODY, name_creep('harvester'), {'memory': {'role': 'harvester'}})
             continue
         if creep_counts['builder'] < consts.TARGET_BUILDERS:
-            spawn.spawnCreep(consts.HARVESTER_BODY, name_creep('builder'), {'memory': {'role': 'builder'}})
+            spawn.spawnCreep(consts.BUILDER_BODY, name_creep('builder'), {'memory': {'role': 'builder'}})
             continue
         if creep_counts['hauler'] < consts.TARGET_HAULERS:
             spawn.spawnCreep(consts.HAULER_BODY, name_creep('hauler'), {'memory': {'role': 'hauler'}})
