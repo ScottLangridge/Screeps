@@ -27,16 +27,16 @@ def decide_task(me):
             me.say('Collecting')
             me.memory.task = 'collect'
     elif me.carry.energy == me.carryCapacity:
-        if me.memory.task != 'building' or me.memory.task != 'repairing':
+        if not (me.memory.task == 'building' or me.memory.task == 'repairing'):
             me.say('Working')
-            if me.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES) is not None:
-                me.memory.task = 'building'
-            else:
-                me.memory.task = 'repairing'
+        if me.pos.findClosestByRange(FIND_CONSTRUCTION_SITES) is not None:
+            me.memory.task = 'building'
+        else:
+            me.memory.task = 'repairing'
 
 
 def build(me):
-    target = me.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES)
+    target = me.pos.findClosestByRange(FIND_CONSTRUCTION_SITES)
 
     code = me.build(target)
     if code == OK:
@@ -47,7 +47,7 @@ def build(me):
 
 def repair(me):
     filter_damaged = {'filter': lambda s: s.hits < s.hitsMax}
-    target = me.pos.findClosestByRange(FIND_MY_STRUCTURES, filter_damaged)
+    target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_damaged)
 
     code = me.repair(target)
     if code == OK:
@@ -57,12 +57,13 @@ def repair(me):
 
 
 def collect(me):
-    filter_containers = {'filter': lambda s: s.structureType == STRUCTURE_CONTAINER and
-                         s.store[RESOURCE_ENERGY] > me.carryCapacity}
-    target = me.pos.findClosestByRange(FIND_MY_STRUCTURES, filter_containers)
+    filter_containers = {'filter': lambda s: s.structureType == STRUCTURE_CONTAINER
+                         and s.store[RESOURCE_ENERGY] > me.carryCapacity}
+    target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_containers)
 
-    code = me.withdraw(target)
+    code = me.withdraw(target, RESOURCE_ENERGY)
     if code == OK:
         return
     elif code == ERR_NOT_IN_RANGE:
         me.moveTo(target)
+        pass

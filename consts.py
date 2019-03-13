@@ -2,6 +2,7 @@ from roles.creep_bodies import BODIES
 
 TARGET_STARTERS = 5
 TARGET_HARVESTERS = 1
+TARGET_BUILDERS = 1
 
 STARTER_BODY = BODIES['starter'][2]
 HARVESTER_BODY = BODIES['harvester'][2]
