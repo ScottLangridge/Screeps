@@ -34,7 +34,7 @@ def decide_task(me):
 
 
 def deposit(me):
-    # Fill containers
+    # Fill containers (in order of importance)
     for container in HARVESTER_CONTAINER_FILL_ORDER:
         target = Game.getObjectById(container)
         if target.store[RESOURCE_ENERGY] < target.storeCapacity:
