@@ -1,5 +1,5 @@
 from defs import *
-from consts import CONTAINER_FILL_ORDER
+from consts import HARVESTER_CONTAINER_FILL_ORDER
 
 __pragma__('noalias', 'name')
 __pragma__('noalias', 'undefined')
@@ -56,7 +56,7 @@ def get_target(me):
     extension = me.pos.findClosestByPath(FIND_STRUCTURES, filter_non_full_extensions)
 
     # Containers (in order of importance)
-    for container in CONTAINER_FILL_ORDER:
+    for container in HARVESTER_CONTAINER_FILL_ORDER:
         cont = Game.getObjectById(container)
         if cont.store[RESOURCE_ENERGY] < cont.storeCapacity:
             return cont
