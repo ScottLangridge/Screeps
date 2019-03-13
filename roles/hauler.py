@@ -1,5 +1,4 @@
 from defs import *
-from consts import HARVESTER_CONTAINER_FILL_ORDER
 
 __pragma__('noalias', 'name')
 __pragma__('noalias', 'undefined')
