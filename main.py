@@ -21,7 +21,7 @@ __pragma__('noalias', 'update')
 ###############################################################################
 
 import consts
-from roles import tower, starter, harvester, builder, hauler
+from roles import tower, starter, harvester, builder, hauler, upgrader
 
 
 # Run each tick.
@@ -34,7 +34,7 @@ def main():
 
 # Controls all creeps
 def creep_control():
-    creep_counts = {'starter': 0, 'harvester': 0, 'builder': 0, 'hauler': 0}
+    creep_counts = {'starter': 0, 'harvester': 0, 'builder': 0, 'hauler': 0, 'upgrader': 0}
     for creepName in Object.keys(Game.creeps):
         creep = Game.creeps[creepName]
         if creep.memory.role == 'harvester':
@@ -49,6 +49,9 @@ def creep_control():
         elif creep.memory.role == 'hauler':
             hauler.run(creep)
             creep_counts['hauler'] += 1
+        elif creep.memory.role == 'upgrader':
+            upgrader.run(creep)
+            creep_counts['upgrader'] += 1
     return creep_counts
 
 
@@ -73,6 +76,9 @@ def spawn_control(creep_counts):
             continue
         if creep_counts['hauler'] < consts.TARGET_HAULERS:
             spawn.spawnCreep(consts.HAULER_BODY, name_creep('hauler'), {'memory': {'role': 'hauler'}})
+            continue
+        if creep_counts['upgrader'] < consts.TARGET_UPGRADERS:
+            spawn.spawnCreep(consts.UPGRADER_BODY, name_creep('upgrader'), {'memory': {'role': 'upgrader'}})
             continue
 
 
