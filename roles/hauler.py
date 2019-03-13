@@ -34,11 +34,12 @@ def decide_task(me):
 
 
 def deposit(me):
+
     # Fill extensions
     filter_extension = {'filter': lambda s: s.structureType == STRUCTURE_EXTENSION and s.energy < s.energyCapacity}
     target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_extension)
     if target is not None:
-        code = me.transer(target)
+        code = me.transfer(target, RESOURCE_ENERGY)
         if code == OK:
             pass
         elif code == ERR_NOT_IN_RANGE:
@@ -50,7 +51,7 @@ def deposit(me):
         spawn = Game.spawns[spawn_name]
         if spawn.energy < spawn.energyCapacity:
             target = spawn
-            code = me.transer(target)
+            code = me.transfer(target, RESOURCE_ENERGY)
             if code == OK:
                 pass
             elif code == ERR_NOT_IN_RANGE:
@@ -61,7 +62,7 @@ def deposit(me):
     filter_tower = {'filter': lambda s: s.structureType == STRUCTURE_TOWER and s.energy - s.energyCapacity >= me.carry}
     target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_tower)
     if target is not None:
-        code = me.transer(target)
+        code = me.transfer(target, RESOURCE_ENERGY)
         if code == OK:
             pass
         elif code == ERR_NOT_IN_RANGE:
