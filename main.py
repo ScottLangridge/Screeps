@@ -171,7 +171,7 @@ def hauler_has_important_deposit(me):
     for spawn_name in Object.keys(Game.spawns):
         spawn = Game.spawns[spawn_name]
         if spawn.energy < spawn.energyCapacity:
-            Memory['hauler_has_task'] = True
+            Memory['hauler_has_important_task'] = True
             return
 
     # Fill towers
@@ -179,10 +179,10 @@ def hauler_has_important_deposit(me):
                                         and s.energyCapacity - s.energy > 400}
     target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_tower)
     if target is not None:
-        Memory['hauler_has_task'] = True
+        Memory['hauler_has_important_task'] = True
         return
 
-    Memory['hauler_has_task'] = False
+    Memory['hauler_has_important_task'] = False
     return
 
 
