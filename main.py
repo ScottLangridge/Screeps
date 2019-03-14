@@ -72,6 +72,12 @@ def spawn_control(creep_counts):
             continue
 
         # If there are not enough of a certain class, spawn it
+        if creep_counts['static_miner'] < consts.TARGET_STATIC_MINERS:
+            spawn.spawnCreep(consts.STATIC_MINER_BODY, name_creep('static'), {'memory': {'role': 'static_miner'}})
+            continue
+        if creep_counts['mine_hauler'] < consts.TARGET_MINE_HAULERS:
+            spawn.spawnCreep(consts.MINE_HAULER_BODY, name_creep('m_hauler'), {'memory': {'role': 'mine_hauler'}})
+            continue
         if creep_counts['starter'] < consts.TARGET_STARTERS:
             spawn.spawnCreep(consts.STARTER_BODY, name_creep('starter'), {'memory': {'role': 'starter'}})
             continue
@@ -86,12 +92,6 @@ def spawn_control(creep_counts):
             continue
         if creep_counts['upgrader'] < consts.TARGET_UPGRADERS:
             spawn.spawnCreep(consts.UPGRADER_BODY, name_creep('upgrader'), {'memory': {'role': 'upgrader'}})
-            continue
-        if creep_counts['static_miner'] < consts.TARGET_STATIC_MINERS:
-            spawn.spawnCreep(consts.STATIC_MINER_BODY, name_creep('static'), {'memory': {'role': 'static_miner'}})
-            continue
-        if creep_counts['mine_hauler'] < consts.TARGET_MINE_HAULERS:
-            spawn.spawnCreep(consts.MINE_HAULER_BODY, name_creep('m_hauler'), {'memory': {'role': 'mine_hauler'}})
             continue
 
 
