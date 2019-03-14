@@ -61,6 +61,9 @@ def repair(me):
 
 
 def collect(me):
+    if Memory.energy_save:
+        return
+
     filter_containers = {'filter': lambda s: s.structureType == STRUCTURE_CONTAINER
                          and s.store[RESOURCE_ENERGY] > me.carryCapacity}
     target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_containers)
@@ -70,4 +73,3 @@ def collect(me):
         return
     elif code == ERR_NOT_IN_RANGE:
         me.moveTo(target)
-        pass

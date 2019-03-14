@@ -45,6 +45,9 @@ def deposit(me):
 
 
 def collect(me):
+    if Memory.energy_save:
+        return
+
     # Take from container
     filter_containers = {'filter': lambda s: s.structureType == STRUCTURE_CONTAINER
                          and s.store[RESOURCE_ENERGY] >= me.carryCapacity}
