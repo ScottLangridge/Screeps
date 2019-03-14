@@ -26,7 +26,7 @@ from roles import tower, starter, harvester, builder, hauler, upgrader, static_m
 
 # Run each tick.
 def main():
-    memory_cleanup()
+    memory()
     creep_counts = creep_control()
     spawn_control(creep_counts)
     tower_control()
@@ -115,6 +115,35 @@ def name_creep(role):
             continue
         else:
             return name
+
+
+# Controls memory
+def memory():
+    memory_cleanup()
+    energy_save()
+
+
+# Decides whether energy must be saved this tick
+# noinspection PyUnresolvedReferences
+def energy_save():
+    spawn = Game.spawns['Spawn1']
+
+    filter_extentions = {'filter': lambda s: s.structureType == STRUCTURE_EXTENSION}
+    filter_containers = {'filter': lambda s: s.structureType == STRUCTURE_CONTAINER}
+
+    total_energy = spawn.energy
+    total_capacity = spawn.energyCapacity
+
+    for ext in spawn.room.find(FIND_STRUCTURES, filter_extentions):
+        total_energy += ext.energy
+        total_capacity += ext.energyCapacity
+    for cont in spawn.room.find(FIND_STRUCTURES, filter_containers):
+        total_energy += cont.store[RESOURCE_ENERGY]
+
+    if total_energy <= 2 * total_capacity:
+        Memory['energy_save'] = True
+    else:
+        Memory['energy_save'] = False
 
 
 # Removes memory for dead creeps
