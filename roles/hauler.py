@@ -100,7 +100,8 @@ def collect(me):
 
     if Memory.hauler_has_important_task:
         # Take from container
-        filter_containers = {'filter': lambda s: s.structureType == STRUCTURE_CONTAINER
+        filter_containers = {'filter': lambda s: (s.structureType == STRUCTURE_CONTAINER
+                             or s.structureType == STRUCTURE_STORAGE)
                              and s.store[RESOURCE_ENERGY] >= me.carryCapacity}
         target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_containers)
         if target is not None:
