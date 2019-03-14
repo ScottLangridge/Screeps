@@ -96,7 +96,7 @@ def deposit(me):
 
 
 def collect(me):
-    # Take from mine containers
+    # Take from full mine containers
     for mine in STATIC_MINER_SPOTS:
         container = get_container_at(me, mine[0], mine[1])
         if container is not None and container.store[RESOURCE_ENERGY] >= me.carryCapacity:
@@ -120,6 +120,16 @@ def collect(me):
             me.moveTo(target)
         else:
             me.say('ERR1:' + str(code))
+        return
+
+    # Move to next mine container
+    most_full = get_container_at(me, STATIC_MINER_SPOTS[0][0], STATIC_MINER_SPOTS[0][1])
+    for mine in STATIC_MINER_SPOTS[1:]:
+        container = get_container_at(me, mine[0], mine[1])
+        if container.store[RESOURCE_ENERGY] > most_full.store[RESOURCE_ENERGY]:
+            most_full = container
+    if most_full is not None:
+        me.moveTo(most_full)
 
 
 def get_container_at(me, x, y):
