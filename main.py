@@ -121,6 +121,9 @@ def name_creep(role):
 def memory():
     memory_cleanup()
     energy_save()
+    # TODO, using spawn for this is only a tempory fix. I should probably find a better way of doing this for when I
+    #  have multiple rooms or differently named spawns.
+    hauler_has_important_deposit(Game.spawns['Spawn1'])
 
 
 # Decides whether energy must be saved this tick
@@ -151,6 +154,36 @@ def memory_cleanup():
     for name, creep in _.pairs(Memory.creeps):
         if not (name in Game.creeps):
             del Memory.creeps[name]
+
+
+# Todo, This initially ran within the hauler script, hence it takes "me" when it really takes a spawn. Should probably
+#  decide what it should actually take and tidy it up to make more sense.
+# Decides whether or not hauler creeps have anything more important to do than move energy from storage to containers
+def hauler_has_important_deposit(me):
+    # Fill extensions
+    filter_extension = {'filter': lambda s: s.structureType == STRUCTURE_EXTENSION and s.energy < s.energyCapacity}
+    target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_extension)
+    if target is not None:
+        Memory['hauler_has_important_task'] = True
+        return
+
+    # Fill spawns
+    for spawn_name in Object.keys(Game.spawns):
+        spawn = Game.spawns[spawn_name]
+        if spawn.energy < spawn.energyCapacity:
+            Memory['hauler_has_task'] = True
+            return
+
+    # Fill towers
+    filter_tower = {'filter': lambda s: s.structureType == STRUCTURE_TOWER
+                                        and s.energyCapacity - s.energy > 400}
+    target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_tower)
+    if target is not None:
+        Memory['hauler_has_task'] = True
+        return
+
+    Memory['hauler_has_task'] = False
+    return
 
 
 module.exports.loop = main
