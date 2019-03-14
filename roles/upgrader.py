@@ -60,3 +60,18 @@ def collect(me):
             me.moveTo(target)
         else:
             me.say('ERR2:' + str(code))
+        return
+
+    # Take from storage
+    filter_storage = {'filter': lambda s: s.structureType == STRUCTURE_STORAGE
+                                          and s.store[RESOURCE_ENERGY] >= me.carryCapacity}
+    target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_storage)
+    if target is not None:
+        code = me.withdraw(target, RESOURCE_ENERGY)
+        if code == OK:
+            return
+        elif code == ERR_NOT_IN_RANGE:
+            me.moveTo(target)
+        else:
+            me.say('ERR3:' + str(code))
+        return

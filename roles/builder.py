@@ -64,12 +64,30 @@ def collect(me):
     if Memory.energy_save:
         return
 
+    # Take from containers
     filter_containers = {'filter': lambda s: s.structureType == STRUCTURE_CONTAINER
                          and s.store[RESOURCE_ENERGY] > me.carryCapacity}
     target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_containers)
-
-    code = me.withdraw(target, RESOURCE_ENERGY)
-    if code == OK:
+    if target is not None:
+        code = me.withdraw(target, RESOURCE_ENERGY)
+        if code == OK:
+            pass
+        elif code == ERR_NOT_IN_RANGE:
+            me.moveTo(target)
+        else:
+            me.say('ERR1: ' + str(code))
         return
-    elif code == ERR_NOT_IN_RANGE:
-        me.moveTo(target)
+
+    # Take from storage
+    filter_storage = {'filter': lambda s: s.structureType == STRUCTURE_STORAGE
+                                          and s.store[RESOURCE_ENERGY] >= me.carryCapacity}
+    target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_storage)
+    if target is not None:
+        code = me.withdraw(target, RESOURCE_ENERGY)
+        if code == OK:
+            return
+        elif code == ERR_NOT_IN_RANGE:
+            me.moveTo(target)
+        else:
+            me.say('ERR3:' + str(code))
+        return

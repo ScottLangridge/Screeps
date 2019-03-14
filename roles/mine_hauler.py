@@ -47,6 +47,18 @@ def deposit(me):
                 me.say('ERR1: ' + code)
             return
 
+    # Fill storage
+    filter_storage = {'filter': lambda s: s.structureType == STRUCTURE_STORAGE
+                                          and s.storeCapacity - s.store[RESOURCE_ENERGY] > me.carry[RESOURCE_ENERGY]}
+    target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_storage)
+    if target is not None:
+        code = me.transfer(target, RESOURCE_ENERGY)
+        if code == OK:
+            pass
+        elif code == ERR_NOT_IN_RANGE:
+            me.moveTo(target)
+        return
+
     # Fill extensions
     filter_extension = {'filter': lambda s: s.structureType == STRUCTURE_EXTENSION and s.energy < s.energyCapacity}
     target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_extension)
