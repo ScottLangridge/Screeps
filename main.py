@@ -131,13 +131,13 @@ def memory():
 def energy_save():
     spawn = Game.spawns['Spawn1']
 
-    filter_extentions = {'filter': lambda s: s.structureType == STRUCTURE_EXTENSION}
+    extensions = {'filter': lambda s: s.structureType == STRUCTURE_EXTENSION}
     filter_containers = {'filter': lambda s: s.structureType == STRUCTURE_CONTAINER}
 
     total_energy = spawn.energy
     total_capacity = spawn.energyCapacity
 
-    for ext in spawn.room.find(FIND_STRUCTURES, filter_extentions):
+    for ext in spawn.room.find(FIND_STRUCTURES, extensions):
         total_energy += ext.energy
         total_capacity += ext.energyCapacity
     for cont in spawn.room.find(FIND_STRUCTURES, filter_containers):
