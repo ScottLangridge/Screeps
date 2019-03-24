@@ -121,7 +121,7 @@ def name_creep(role):
 def memory():
     memory_cleanup()
     energy_save()
-    # TODO, using spawn for this is only a tempory fix. I should probably find a better way of doing this for when I
+    # TODO, using spawn for this is only a temporary fix. I should probably find a better way of doing this for when I
     #  have multiple rooms or differently named spawns.
     hauler_has_important_deposit(Game.spawns['Spawn1'])
 
