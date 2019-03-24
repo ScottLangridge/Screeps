@@ -158,10 +158,11 @@ def memory_cleanup():
 # Todo, This initially ran within the hauler script, hence it takes "me" when it really takes a spawn. Should probably
 #  decide what it should actually take and tidy it up to make more sense.
 # Decides whether or not hauler creeps have anything more important to do than move energy from storage to containers
-def hauler_has_important_deposit(me):
+# in a given room
+def hauler_has_important_deposit(room):
     # Fill extensions
     filter_extension = {'filter': lambda s: s.structureType == STRUCTURE_EXTENSION and s.energy < s.energyCapacity}
-    target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_extension)
+    target = room.find(FIND_STRUCTURES, filter_extension)
     if target is not None:
         Memory['hauler_has_important_task'] = True
         return
@@ -176,7 +177,7 @@ def hauler_has_important_deposit(me):
     # Fill towers
     filter_tower = {'filter': lambda s: s.structureType == STRUCTURE_TOWER
                                         and s.energyCapacity - s.energy > 400}
-    target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_tower)
+    target = room.find(FIND_STRUCTURES, filter_tower)
     if target is not None:
         Memory['hauler_has_important_task'] = True
         return
