@@ -175,7 +175,7 @@ def hauler_has_important_deposit(room):
 
     # Fill towers
     filter_tower = {'filter': lambda s: s.structureType == STRUCTURE_TOWER
-                                        and s.energyCapacity - s.energy > 400}
+                                        and s.energyCapacity - s.energy > 250}
     non_full_towers = room.find(FIND_STRUCTURES, filter_tower)
     if len(non_full_towers) > 0:
         Memory['hauler_has_important_task'] = True
