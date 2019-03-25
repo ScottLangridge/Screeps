@@ -24,6 +24,21 @@ def attack(me):
 
 
 def repair(me):
-    filter_damaged = {'filter': lambda s: s.hits < s.hitsMax}
+    # Regular repairs
+    filter_damaged = {'filter': lambda s: s.hits < s.hitsMax and s.structureType != STRUCTURE_WALL
+                      and s.structureType != STRUCTURE_RAMPART}
     target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_damaged)
-    me.repair(target)
+    if target is not None:
+        me.repair(target)
+        return
+
+    # Repair defences
+    filter_defences = {'filter': lambda s: s.structureType == STRUCTURE_WALL or s.structureType == STRUCTURE_RAMPART
+                       and s.hits < s.hitsMax}
+    target = None
+    for defence in me.room.find(FIND_STRUCTURES, filter_defences):
+        if target is None or defence.hits < target.hits:
+            target = defence
+    if target is not None:
+        me.repair(target)
+        return
