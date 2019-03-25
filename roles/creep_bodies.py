@@ -1,28 +1,55 @@
 from defs import *
 
-BODIES = {'starter': [[MOVE, WORK, WORK, CARRY],
-                      [MOVE, WORK, WORK, WORK, CARRY, CARRY],
-                      [MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY]],
+BODIES = {
+    'starter': [
+        [MOVE, WORK, WORK, CARRY],
 
-          'harvester': [[MOVE, WORK, WORK, CARRY],
-                        [MOVE, WORK, WORK, WORK, CARRY, CARRY],
-                        [MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY]],
+        [MOVE, WORK, WORK, WORK, CARRY, CARRY],
 
-          'builder': [[MOVE, WORK, WORK, CARRY],
-                      [MOVE, WORK, WORK, WORK, CARRY, CARRY],
-                      [MOVE, MOVE, WORK, WORK, CARRY, CARRY, CARRY],
-                      [MOVE, MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY, CARRY],
-                      [MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY],
-                      [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, WORK, WORK,
-                       WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY]],
+        [MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY]
+    ],
 
-          'hauler': [[MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY]],
+    'harvester': [
+        [MOVE, WORK, WORK, CARRY],
 
-          'upgrader': [[MOVE, CARRY, WORK],
-                       [MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY]],
+        [MOVE, WORK, WORK, WORK, CARRY, CARRY],
 
-          'static_miner': [[MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, WORK]],
+        [MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY]
+    ],
 
-          'mine_hauler': [
-              [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY]],
-          }
+    'builder': [
+        [MOVE, WORK, WORK, CARRY],
+
+        [MOVE, WORK, WORK, WORK, CARRY, CARRY],
+
+        [MOVE, MOVE, WORK, WORK, CARRY, CARRY, CARRY],
+
+        [MOVE, MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY, CARRY],
+
+        [MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY],
+
+        [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, WORK, WORK,
+         WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY]
+    ],
+
+    'hauler': [
+        [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY],
+
+        [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
+         CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY]
+    ],
+
+    'upgrader': [
+        [MOVE, CARRY, WORK],
+
+        [MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY]
+    ],
+
+    'static_miner': [
+        [MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, WORK]
+    ],
+
+    'mine_hauler': [
+        [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY]
+    ],
+}
