@@ -143,8 +143,6 @@ def energy_save():
     for cont in spawn.room.find(FIND_STRUCTURES, filter_containers):
         total_energy += cont.store[RESOURCE_ENERGY]
 
-    print(total_energy)
-
     if total_energy <= 2 * total_capacity:
         Memory['energy_save'] = True
     else:
