@@ -51,7 +51,8 @@ def build(me):
 
 
 def repair(me):
-    filter_damaged = {'filter': lambda s: s.hits < s.hitsMax}
+    filter_damaged = {'filter': lambda s: s.hits < s.hitsMax and s.structureType != STRUCTURE_WALL
+                                          and s.structureType != STRUCTURE_RAMPART}
     target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_damaged)
 
     code = me.repair(target)
