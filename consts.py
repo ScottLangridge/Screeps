@@ -10,7 +10,7 @@ TARGET_MINE_HAULERS = 1
 
 STARTER_BODY = BODIES['starter'][2]
 HARVESTER_BODY = BODIES['harvester'][2]
-BUILDER_BODY = BODIES['builder'][4]
+BUILDER_BODY = BODIES['builder'][5]
 HAULER_BODY = BODIES['hauler'][0]
 UPGRADER_BODY = BODIES['upgrader'][1]
 STATIC_MINER_BODY = BODIES['static_miner'][0]
