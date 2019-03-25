@@ -18,8 +18,7 @@ MINE_HAULER_BODY = BODIES['mine_hauler'][0]
 
 HARVESTER_CONTAINER_FILL_ORDER = ['5c8837ab0feddb5f7827ba2c',
                                   '5c88e870946eb05f77944ad6',
-                                  '5c884a25311fe41e87188549',
-                                  '5c8a579903c0d05f629a5f0a']
+                                  '5c884a25311fe41e87188549']
 
 MIN_TOWER_ENERGY = 250
 
