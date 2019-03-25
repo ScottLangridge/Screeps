@@ -161,8 +161,8 @@ def memory_cleanup():
 def hauler_has_important_deposit(room):
     # Fill extensions
     filter_extension = {'filter': lambda s: s.structureType == STRUCTURE_EXTENSION and s.energy < s.energyCapacity}
-    target = room.find(FIND_STRUCTURES, filter_extension)
-    if target is not None:
+    non_full_extensions = room.find(FIND_STRUCTURES, filter_extension)
+    if len(non_full_extensions) > 0:
         Memory['hauler_has_important_task'] = True
         return
 
@@ -176,8 +176,8 @@ def hauler_has_important_deposit(room):
     # Fill towers
     filter_tower = {'filter': lambda s: s.structureType == STRUCTURE_TOWER
                                         and s.energyCapacity - s.energy > 400}
-    target = room.find(FIND_STRUCTURES, filter_tower)
-    if target is not None:
+    non_full_towers = room.find(FIND_STRUCTURES, filter_tower)
+    if len(non_full_towers) > 0:
         Memory['hauler_has_important_task'] = True
         return
 
