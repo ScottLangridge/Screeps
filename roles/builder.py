@@ -1,4 +1,4 @@
-from consts import TARGET_WALL_HEALTH
+from consts import TARGET_WALL_HEALTH, BUILDERS_REPAIR_DEFENCES
 from defs import *
 
 __pragma__('noalias', 'name')
@@ -62,19 +62,20 @@ def repair(me):
         me.moveTo(target)
 
     # Repair defences
-    filter_defences = {'filter': lambda s: s.structureType == STRUCTURE_WALL or s.structureType == STRUCTURE_RAMPART
-                       and s.hits < s.hitsMax}
-    target = None
-    for defence in me.room.find(FIND_STRUCTURES, filter_defences):
-        if target is None or defence.hits < target.hits:
-            target = defence
-    if target is not None and target.hits < TARGET_WALL_HEALTH:
-        code = me.repair(target)
-        if code == OK:
+    if BUILDERS_REPAIR_DEFENCES:
+        filter_defences = {'filter': lambda s: s.structureType == STRUCTURE_WALL or s.structureType == STRUCTURE_RAMPART
+                           and s.hits < s.hitsMax}
+        target = None
+        for defence in me.room.find(FIND_STRUCTURES, filter_defences):
+            if target is None or defence.hits < target.hits:
+                target = defence
+        if target is not None and target.hits < TARGET_WALL_HEALTH:
+            code = me.repair(target)
+            if code == OK:
+                return
+            elif code == ERR_NOT_IN_RANGE:
+                me.moveTo(target)
             return
-        elif code == ERR_NOT_IN_RANGE:
-            me.moveTo(target)
-        return
 
 
 def collect(me):
