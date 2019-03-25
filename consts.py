@@ -21,6 +21,8 @@ HARVESTER_CONTAINER_FILL_ORDER = ['5c8837ab0feddb5f7827ba2c',
                                   '5c884a25311fe41e87188549',
                                   '5c8a579903c0d05f629a5f0a']
 
+MIN_TOWER_ENERGY = 250
+
 STATIC_MINER_SPOTS = [[23, 18], [30, 20]]
 
 TARGET_WALL_HEALTH = 25000

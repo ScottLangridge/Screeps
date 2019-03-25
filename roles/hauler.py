@@ -1,5 +1,5 @@
 from defs import *
-from consts import HARVESTER_CONTAINER_FILL_ORDER
+from consts import HARVESTER_CONTAINER_FILL_ORDER, MIN_TOWER_ENERGY
 
 __pragma__('noalias', 'name')
 __pragma__('noalias', 'undefined')
@@ -61,7 +61,7 @@ def deposit(me):
         # Fill towers
         filter_tower = {'filter': lambda s: s.structureType == STRUCTURE_TOWER
                         and s.energyCapacity - s.energy > me.carry[RESOURCE_ENERGY]
-                        or s.energyCapacity - s.energy > 250}
+                        or s.energyCapacity - s.energy > MIN_TOWER_ENERGY}
         target = me.pos.findClosestByRange(FIND_STRUCTURES, filter_tower)
         if target is not None:
             code = me.transfer(target, RESOURCE_ENERGY)
