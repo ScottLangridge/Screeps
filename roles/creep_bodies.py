@@ -12,7 +12,9 @@ BODIES = {'starter': [[MOVE, WORK, WORK, CARRY],
                       [MOVE, WORK, WORK, WORK, CARRY, CARRY],
                       [MOVE, MOVE, WORK, WORK, CARRY, CARRY, CARRY],
                       [MOVE, MOVE, MOVE, WORK, WORK, WORK, CARRY, CARRY, CARRY],
-                      [MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY]],
+                      [MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY],
+                      [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK, WORK, WORK, WORK,
+                       WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY]],
 
           'hauler': [[MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY]],
 
