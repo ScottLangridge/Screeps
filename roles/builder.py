@@ -1,3 +1,4 @@
+from consts import TARGET_WALL_HEALTH
 from defs import *
 
 __pragma__('noalias', 'name')
@@ -66,7 +67,7 @@ def repair(me):
     for defence in me.room.find(FIND_STRUCTURES, filter_defences):
         if target is None or defence.hits < target.hits:
             target = defence
-    if target is not None:
+    if target is not None and target.hits < TARGET_WALL_HEALTH:
         code = me.repair(target)
         if code == OK:
             return
