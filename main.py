@@ -155,8 +155,6 @@ def memory_cleanup():
             del Memory.creeps[name]
 
 
-# Todo, This initially ran within the hauler script, hence it takes "me" when it really takes a spawn. Should probably
-#  decide what it should actually take and tidy it up to make more sense.
 # Decides whether or not hauler creeps have anything more important to do than move energy from storage to containers
 # in a given room
 def hauler_has_important_deposit(room):
