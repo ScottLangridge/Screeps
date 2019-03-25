@@ -131,7 +131,8 @@ def energy_save():
     spawn = Game.spawns['Spawn1']
 
     extensions = {'filter': lambda s: s.structureType == STRUCTURE_EXTENSION}
-    filter_containers = {'filter': lambda s: s.structureType == STRUCTURE_CONTAINER}
+    filter_containers = {'filter': lambda s: s.structureType == STRUCTURE_CONTAINER
+                         or s.structureType == STRUCTURE_STORAGE}
 
     total_energy = spawn.energy
     total_capacity = spawn.energyCapacity
@@ -141,6 +142,8 @@ def energy_save():
         total_capacity += ext.energyCapacity
     for cont in spawn.room.find(FIND_STRUCTURES, filter_containers):
         total_energy += cont.store[RESOURCE_ENERGY]
+
+    print(total_energy)
 
     if total_energy <= 2 * total_capacity:
         Memory['energy_save'] = True
