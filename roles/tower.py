@@ -27,11 +27,11 @@ def attack(me):
                 target = i
 
     # Target Any
-    if target is None:
+    if target == undefined:
         target = me.pos.findClosestByRange(FIND_HOSTILE_CREEPS)
 
     # Attack
-    if target is not None:
+    if target != undefined:
         me.attack(target)
 
 
